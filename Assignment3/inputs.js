@@ -27,6 +27,27 @@ function setNumber(element) {
   element.childNodes[2].innerHTML = len;
 }
 
+function sort() {
+  // insertion sort
+  for (var i = 1; i < inputContainers.length; i++) {
+    var j = i;
+    while (j > 0 && parseInt(inputContainers[j-1].childNodes[2].innerHTML) > parseInt(inputContainers[j].childNodes[2].innerHTML)) {
+      var temp = inputContainers[j-1];
+      inputContainers[j-1] = inputContainers[j];
+      inputContainers[j] = temp;
+      j--;
+    }
+  }
+  // now remove elements from the container div and readd them
+  var div = document.getElementById('container');
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+  for (var i = 0; i < inputContainers.length; i++) {
+    div.appendChild(inputContainers[i]);
+  }
+}
+
 function generateInput() {
   var input = document.createElement('input');
   input.setAttribute('type', 'text');

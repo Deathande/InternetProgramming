@@ -1,24 +1,24 @@
 // create the first element and initialize the arrays
-var inputContainers = [generateDiv()]; 
+var inputs = [generateDiv()]; 
 var removed = []; // Acts as first in last out stack
-document.getElementById('container').appendChild(inputContainers[0]);
+document.getElementById('container').appendChild(inputs[0]);
 
-function add() {
+function addInput() {
   if (removed.length > 0) {
     var newDiv = removed.pop();
   }
   else {
     var newDiv = generateDiv();
   }
-  inputContainers.push(newDiv);
+  inputs.push(newDiv);
   document.getElementById('container').appendChild(newDiv);
 }
 
 function subtract(element) {
-  if (inputContainers.length > 1) {
-    var index = inputContainers.indexOf(element);
+  if (inputs.length > 1) {
+    var index = inputs.indexOf(element);
     removed.push(element);
-    inputContainers.splice(index, 1);
+    inputs.splice(index, 1);
     element.remove();
   }
 }
@@ -30,12 +30,12 @@ function setNumber(element) {
 
 function sort() {
   // insertion sort
-  for (var i = 1; i < inputContainers.length; i++) {
+  for (var i = 1; i < inputs.length; i++) {
     var j = i;
-    while (j > 0 && parseInt(inputContainers[j-1].childNodes[2].innerHTML) > parseInt(inputContainers[j].childNodes[2].innerHTML)) {
-      var temp = inputContainers[j-1];
-      inputContainers[j-1] = inputContainers[j];
-      inputContainers[j] = temp;
+    while (j > 0 && parseInt(inputs[j-1].childNodes[2].innerHTML) > parseInt(inputs[j].childNodes[2].innerHTML)) {
+      var temp = inputs[j-1];
+      inputs[j-1] = inputs[j];
+      inputs[j] = temp;
       j--;
     }
   }
@@ -44,12 +44,12 @@ function sort() {
   while (div.firstChild) {
     div.removeChild(div.firstChild);
   }
-  for (var i = 0; i < inputContainers.length; i++) {
-    div.appendChild(inputContainers[i]);
+  for (var i = 0; i < inputs.length; i++) {
+    div.appendChild(inputs[i]);
   }
 }
 
-function generateInput() {
+function generateTF() {
   var input = document.createElement('input');
   input.setAttribute('type', 'text');
   input.setAttribute('onkeyup', 'setNumber(this.parentElement)');
@@ -71,7 +71,7 @@ function generateLabel() {
 
 function generateDiv() {
   var div = document.createElement('div');
-  div.appendChild(generateInput());
+  div.appendChild(generateTF());
   div.appendChild(generateButton());
   div.appendChild(generateLabel());
   return div;

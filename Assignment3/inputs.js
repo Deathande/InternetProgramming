@@ -1,9 +1,10 @@
-var inputContainers = [];
-var removed = [];
+// create the first element and initialize the arrays
+var inputContainers = [generateDiv()]; 
+var removed = []; // Acts as first in last out stack
+document.getElementById('container').appendChild(inputContainers[0]);
 
 function add() {
   if (removed.length > 0) {
-    console.log(';test');
     var newDiv = removed.pop();
   }
   else {
@@ -14,12 +15,12 @@ function add() {
 }
 
 function subtract(element) {
-  var index = inputContainers.indexOf(element);
-  console.log(index);
-  removed.push(element);
-  inputContainers.splice(index, 1);
-  console.log(inputContainers);
-  element.remove();
+  if (inputContainers.length > 1) {
+    var index = inputContainers.indexOf(element);
+    removed.push(element);
+    inputContainers.splice(index, 1);
+    element.remove();
+  }
 }
 
 function setNumber(element) {
@@ -38,7 +39,7 @@ function sort() {
       j--;
     }
   }
-  // now remove elements from the container div and readd them
+  // now remove elements from the container div and read them
   var div = document.getElementById('container');
   while (div.firstChild) {
     div.removeChild(div.firstChild);

@@ -19,12 +19,20 @@ class Server:
 				if ci.t == 'E':
 					print("Client requesting evaluation")
 					ans = polynomials.evaluate(ci.arg1, ci.arguments)
+					msg = "E" + str(ans)
 				if ci.t == 'S':
 					print("Client requesting bisection")
+					print("a: " + str(ci.arg1))
+					print("b: " + str(ci.arg2))
+					print("tol: " + str(ci.tol))
+					print("arguments: " + str(ci.arguments))
 					ans = polynomials.bisection(ci.arg1, ci.arg2, ci.arguments, ci.tol)
+					msg = "S" + str(ans)
 					#print (ans)
 			except Exception:
 				print("Client sent invalid data")
+				msg = "XError parsing data"
+			cs.sendall(msg.encode())
 	
 class ClientInput:
 	def __init__(self, client_string):

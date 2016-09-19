@@ -51,9 +51,12 @@ if __name__ == '__main__':
 	if value[0] == 'X':
 		err(value)
 	value = value[1:]
+	print("The result of the bisection method is " + value)
 	value = float(value)
 	msg = construct_eval_msg(value, poly)
 	value = send_message(msg, addr, port)
 	if value[0] == 'X':
 		err(value)
-	print(value[1:])
+	value = float(value[1:])
+	print("The result of the evaluation is: " + str(value))
+	#print("The result of the 

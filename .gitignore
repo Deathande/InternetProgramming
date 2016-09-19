@@ -1,2 +1,4 @@
 *.tar*
 *.swp
+__pychache__
+*.pyc
